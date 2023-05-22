@@ -50,6 +50,13 @@ const userSchema = new mongoose.Schema({
         enum: ["Candidate", "Employer"],
         default: "Employer",
     },
+    image: String,
+    job_title: String,
+    phone: String,
+    language: String,
+    website: String,
+    age: String,
+    description: String
 
 }, {
     timestamps: true
@@ -65,7 +72,7 @@ userSchema.pre('save', async function () {
 //     const hashedPassword = bcrypt.hashSync(password);
 //     this.password = hashedPassword;
 //     this.confirmPassword = undefined;
-    
+
 //     next()
 // });
 

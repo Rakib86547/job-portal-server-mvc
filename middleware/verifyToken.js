@@ -3,8 +3,10 @@ const dotenv = require('dotenv').config();
 
 exports.verifyToken = async (req, res, next) => {
     try {
+        console.log('token: ', req.authorization)
         console.log(req.headers.authorization)
-        const authHeader = req.headers.authorization;;
+        const authHeader = req.headers.authorization;
+        console.log('authHeader-token>>> ', authHeader)
         if (!authHeader) {
             return res.status(401).send({ status: "Fail", message: "Unauthorized access" })
         }

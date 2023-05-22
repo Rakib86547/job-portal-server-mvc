@@ -63,6 +63,10 @@ const jobSchema = new mongoose.Schema({
     company_information: [{
         type: String,
         required: true
+    }],
+    applicants: [],
+    queries: [{
+        // type: String
     }]
 },{
     timestamps: true
