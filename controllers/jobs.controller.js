@@ -1,4 +1,4 @@
-const { getJobsService, createJobsService, getJobsByCategoryService, getJobsDetailsByIdService, createApplyService, existApplyUserService } = require("../services/jobs.service")
+const { getJobsService, createJobsService, getJobsByCategoryService, getJobsDetailsByIdService, createApplyService, existApplyUserService, getAppliedJobsService } = require("../services/jobs.service")
 
 exports.getJobs = async (req, res, next) => {
     try {
@@ -66,21 +66,37 @@ exports.createApply = async (req, res) => {
         const id = req.params.id;
         const data = req.body;
 
-        const existApply = await existApplyUserService(data.email);
-        const searchEmail = existApply?.applicants?.map(getEmail => getEmail.email === data.email);
-        if (searchEmail) {
-            return res.status(400).send({
-                status: "Fail",
-                message: 'You have already apply for this job'
-            })
-        }
-        else {
+        const existApply = await existApplyUserService(id)
+
+        existApply.applicants.map(existData => {
+            if (existData.email === data.email) {
+                return res.status(400).send({
+                    status: "Fail",
+                    message: 'You have already apply for this job'
+                })
+            }
+        })
+        if (id) {
             const apply = await createApplyService(id, data);
-            res.status(200).send({
+            return res.status(200).send({
                 status: "Success",
                 data: apply
             })
         }
+
+    } catch (error) {
+    //    next(error)
+    }
+}
+exports.getAppliedJobs = async (req, res) => {
+    try {
+        const email = req.params.email;
+        const jobs = await getAppliedJobsService(email);
+        console.log('applied job',jobs)
+        res.status(200).send({
+            status: 'Success',
+            data: jobs
+        })
     } catch (error) {
         res.status(400).json({
             status: "Fail",

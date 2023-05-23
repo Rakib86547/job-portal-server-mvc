@@ -9,7 +9,6 @@ exports.getJobsByCategoryService = async (category) => {
     return jobs;
 }
 exports.getJobsDetailsByIdService = async (id) => {
-    console.log('service: ', id)
     const jobs = await Jobs.findOne({ _id: id });
     return jobs;
 }
@@ -18,18 +17,29 @@ exports.createJobsService = async (data) => {
     const jobs = await Jobs.create(data);
     return jobs;
 }
-exports.existApplyUserService = async (email) => {
-    const existApply = await Jobs.findOne({ "applicants": { $elemMatch: { email: email } } })
-   return existApply
 
+
+// ---------- get exist job applied user ----------
+exports.existApplyUserService = async (id) => {
+    const existApply = await Jobs.findOne({ _id: id });
+    return existApply
 }
+
+// ------------- post job apply ------------------
 exports.createApplyService = async (id, data) => {
     const apply = await Jobs.updateOne(
         { _id: id },
         {
-            $push: { applicants: data }, email: data.email
+            $push: { applicants: data }
         },
         { new: true },
     )
     return apply
+}
+
+// --------get all apply jobs of specific user -------------
+
+exports.getAppliedJobsService = async (email) => {
+    const appliedJobs = await Jobs.find({ 'applicants': { $elemMatch: { email: email } } });
+    return appliedJobs;
 }

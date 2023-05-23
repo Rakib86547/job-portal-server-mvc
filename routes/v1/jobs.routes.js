@@ -13,6 +13,7 @@ router.route('/:category')
 router.route('/job-details/:id')
     .get(jobsController.getJobsDetailsById)
 
-router.route('/apply/:id').post(jobsController.createApply)
+router.route('/apply/:id').put(jobsController.createApply)
+router.route('/my-jobs/:email').get(jobsController.getAppliedJobs)
 
 module.exports = router;

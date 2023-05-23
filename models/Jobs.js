@@ -34,9 +34,13 @@ const jobSchema = new mongoose.Schema({
         }
     },
     salary: {
-        type: Number,
+        type: String,
         required: [true, "Salary is Required"],
         min: [0, "Salary can't be negative"]
+    },
+    position: {
+        type: String,
+        required: true
     },
     company_details: {
         type: String,
