@@ -2,17 +2,15 @@ const jwt = require("jsonwebtoken");
 const dotenv = require('dotenv').config();
 
 exports.verifyToken = async (req, res, next) => {
-    try {
-        console.log('token: ', req.authorization)
-        console.log(req.headers.authorization)
+    try {        
         const authHeader = req.headers.authorization;
-        console.log('authHeader-token>>> ', authHeader)
         if (!authHeader) {
             return res.status(401).send({ status: "Fail", message: "Unauthorized access" })
         }
 
         const token = authHeader.split(" ")[1]
-        jwt.verify(token, process.env.JWT_SECRET_KEY, function (error, decoded) {
+        console.log('token>>> ', token)
+        jwt.verify(token, process.env.JWT_SECRET_KEY, { expiresIn: '7day' }, function (error, decoded) {
             if (error) {
                 return res.status(403).send({ status: "Fail", message: "forbidden access" });
             }

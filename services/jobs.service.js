@@ -43,3 +43,25 @@ exports.getAppliedJobsService = async (email) => {
     const appliedJobs = await Jobs.find({ 'applicants': { $elemMatch: { email: email } } });
     return appliedJobs;
 }
+
+// ----- save questions -----
+exports.createQuestionsService = async (id, data) => {
+    const appliedJobs = await Jobs.updateOne({ _id: id }, { queries: data });
+    return appliedJobs;
+}
+
+
+exports.createRipleyService = async (id, data) => {
+    const ripley = await Jobs.updateOne({ _id: id }, { replies: data });
+    return ripley;
+}
+
+
+exports.getQuestionsService = async (id) => {
+    const question = await Jobs.findOne({ _id: id });
+    return question;
+}
+exports.getRipleyService = async (id) => {
+    const ripley = await Jobs.findOne({ _id: id });
+    return ripley;
+}

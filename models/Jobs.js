@@ -69,9 +69,8 @@ const jobSchema = new mongoose.Schema({
         required: true
     }],
     applicants: [],
-    queries: [{
-        // type: String
-    }]
+    queries: [],
+    replies: []
 },{
     timestamps: true
 });

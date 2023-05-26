@@ -1,4 +1,4 @@
-const { getJobsService, createJobsService, getJobsByCategoryService, getJobsDetailsByIdService, createApplyService, existApplyUserService, getAppliedJobsService } = require("../services/jobs.service")
+const { getJobsService, createJobsService, getJobsByCategoryService, getJobsDetailsByIdService, createApplyService, existApplyUserService, getAppliedJobsService, createQuestionsService, getQuestionsService, createRipleyService, getRipleyService } = require("../services/jobs.service")
 
 exports.getJobs = async (req, res, next) => {
     try {
@@ -88,6 +88,8 @@ exports.createApply = async (req, res) => {
     //    next(error)
     }
 }
+
+
 exports.getAppliedJobs = async (req, res) => {
     try {
         const email = req.params.email;
@@ -96,6 +98,78 @@ exports.getAppliedJobs = async (req, res) => {
         res.status(200).send({
             status: 'Success',
             data: jobs
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: "Fail",
+            message: error.message
+        })
+    }
+}
+
+
+exports.createQuestions = async (req, res) => {
+    try {        
+        const data = req.body;
+        const id = data.jobId;
+        const questions = await createQuestionsService(id, data);        
+        res.status(200).send({
+            status: 'Success',
+            data: questions
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: "Fail",
+            message: error.message
+        })
+    }
+}
+
+exports.createRipley = async (req, res) => {
+    try {        
+        const data = req.body;
+        const id = data.ripleyJobId;
+        console.log('ripley data: ', data)
+        const ripley = await createRipleyService(id, data);        
+        res.status(200).send({
+            status: 'Success',
+            data: ripley
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: "Fail",
+            message: error.message
+        })
+    }
+}
+
+
+exports.getQuestions = async (req, res) => {
+    try {        
+        const id = req.params.id
+        const questions = await getQuestionsService(id);
+        console.log(questions)
+        
+        res.status(200).send({
+            status: 'Success',
+            data: questions.queries
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: "Fail",
+            message: error.message
+        })
+    }
+}
+exports.getRipley = async (req, res) => {
+    try {        
+        const id = req.params.id
+        const ripley = await getRipleyService(id);
+        console.log(ripley)
+        
+        res.status(200).send({
+            status: 'Success',
+            data: ripley.replies
         })
     } catch (error) {
         res.status(400).json({
