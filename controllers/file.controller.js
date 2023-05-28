@@ -1,14 +1,54 @@
-const { fileUploadService } = require("../services/files.service");
+const { fileUploadService, getFileService, deleteFileService } = require("../services/files.service");
 
 exports.fileUpload = async (req, res, next) => {
     try {
         const pdfFile = req.file
-        console.log('file', req.file)
-        const file = await fileUploadService(pdfFile);
+        const email = req.body.email
+        const data = {
+            filename: pdfFile.filename,
+            path: pdfFile.path,
+            originalname: pdfFile.originalname,
+            email: email
+        }
+        const uploadFile = await fileUploadService(data, email);
+        console.log('upload', uploadFile)
         res.status(200).send({
             status: "Success",
-            data: file
+            data: uploadFile
         })
+    } catch (error) {
+        res.status(400).send({
+            status: 'Fail',
+            message: error.message
+        })
+    }
+}
+exports.getFile = async (req, res, next) => {
+    try {
+        const email = req.params.email;
+        const getFile = await getFileService(email);
+        res.status(200).send({
+            status: "Success",
+            data: getFile
+        })
+
+    } catch (error) {
+        res.status(400).send({
+            status: 'Fail',
+            message: error.message
+        })
+    }
+}
+exports.deleteFile = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const deleteFile = await deleteFileService(id);
+        console.log('delete', deleteFile)
+        res.status(200).send({
+            status: "Success",
+            data: deleteFile
+        })
+
     } catch (error) {
         res.status(400).send({
             status: 'Fail',
