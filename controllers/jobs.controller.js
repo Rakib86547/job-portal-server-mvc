@@ -94,7 +94,6 @@ exports.getAppliedJobs = async (req, res) => {
     try {
         const email = req.params.email;
         const jobs = await getAppliedJobsService(email);
-        console.log('applied job',jobs)
         res.status(200).send({
             status: 'Success',
             data: jobs

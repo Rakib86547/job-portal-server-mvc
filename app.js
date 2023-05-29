@@ -12,6 +12,7 @@ const categoryRoute = require('./routes/v1/category.route');
 const userRoute = require('./routes/v1/user.route');
 const profileRoute = require('./routes/v1/profile.route')
 const fileRoute = require('./routes/v1/files.route')
+const personalRoute = require('./routes/v1/personal.route')
 
 
 app.get('/', (req, res) => {
@@ -26,5 +27,6 @@ app.use('/api/v1/category', categoryRoute)
 app.use('/api/v1/user', userRoute)
 app.use('/api/v1/profile', profileRoute)
 app.use('/api/v1/file', fileRoute)
+app.use('/api/v1/personal', personalRoute)
 
 module.exports = app;
