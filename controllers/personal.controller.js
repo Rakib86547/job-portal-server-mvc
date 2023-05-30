@@ -16,11 +16,10 @@ exports.createPersonalInfo = async (req, res) => {
         })
     }
 }
-exports.getPersonalInfo = async (req, res) => {
+exports.getPersonalInfo = async (req, res, next) => {
     try {
-        const email = req.body.email;
+        const email = req.params.email;
         const personal = await getPersonalInfoService(email);
-        console.log(personal)
         res.status(200).send({
             status: "Success",
             data: personal

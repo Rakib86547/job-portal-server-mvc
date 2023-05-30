@@ -10,5 +10,5 @@ exports.createPersonalInfoService = async (email, info) => {
 }
 exports.getPersonalInfoService = async (email) => {
     const personal = await PersonalInfo.findOne({ email: email });
-    return personal
+    return personal;
 }
