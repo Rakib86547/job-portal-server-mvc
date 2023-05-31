@@ -1,5 +1,6 @@
 const { createWorkService, getWorkService, updateWorkService, deleteWorkService } = require("../services/work.service");
 
+
 exports.createWork = async (req, res, next) => {
     try {
         const data = req.body;
@@ -25,7 +26,7 @@ exports.getWork = async (req, res, next) => {
             data: work
         })
     } catch (error) {
-        res.status(200).send({
+        res.status(400).send({
             status: 'Fail',
             message: error.message
         })
@@ -39,8 +40,7 @@ exports.updateWork = async (req, res, next) => {
         const id = req.body.id;
         const data = req.body;
         const work = await updateWorkService(id, data);
-        console.log(work)
-        res.status(200).send({
+        res.status(400).send({
             status: 'Success',
             data: work
         })
@@ -60,7 +60,6 @@ exports.deleteWork = async (req, res, next) => {
             status: 'Success',
             data: work
         })
-        console.log(education)
     } catch (error) {
         res.status(400).send({
             status: 'Fail',
