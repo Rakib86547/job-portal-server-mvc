@@ -29,8 +29,8 @@ const jobSchema = new mongoose.Schema({
         type: String,
         trim: true,
         enum: {
-            values: ["Fresher", "Experienced"],
-            message: "Can`t {VALUE}, must be /Fresher/Experienced"
+            values: ["Fresher", "Experienced", "Mid Level Experience"],
+            message: "Can`t {VALUE}, must be /Fresher/Experienced/Mid Level Experience"
         }
     },
     salary: {
@@ -67,6 +67,10 @@ const jobSchema = new mongoose.Schema({
     company_information: [{
         type: String,
         required: true
+    }],
+    company: [{
+        type: ObjectId,
+        ref: 'CompanyInfo'
     }],
     applicants: [],
     queries: [],

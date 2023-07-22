@@ -15,6 +15,7 @@ const fileRoute = require('./routes/v1/files.route')
 const personalRoute = require('./routes/v1/personal.route')
 const educationRoute = require('./routes/v1/education.route')
 const workRoute = require('./routes/v1/work.route')
+const companyRoute = require('./routes/v1/companyInfo.route')
 
 
 app.get('/', (req, res) => {
@@ -32,5 +33,6 @@ app.use('/api/v1/file', fileRoute)
 app.use('/api/v1/personal', personalRoute)
 app.use('/api/v1/education', educationRoute)
 app.use('/api/v1/work', workRoute)
+app.use('/api/v1/company', companyRoute)
 
 module.exports = app;
