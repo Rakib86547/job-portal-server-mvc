@@ -14,11 +14,14 @@ const jobSchema = new mongoose.Schema({
         required: true,
         validate: [validator.isURL, "Please Provide a Image"]
     },
-    company: {
+    email: {
         type: String,
-        trim: true,
-        required: [true, "Please Provide Your Company Name"]
     },
+    // company: {
+    //     type: String,
+    //     trim: true,
+    //     required: [true, "Please Provide Your Company Name"]
+    // },
     location: {
         type: String,
         trim: true,
@@ -30,8 +33,11 @@ const jobSchema = new mongoose.Schema({
         trim: true,
         enum: {
             values: ["Fresher", "Experienced", "Mid Level Experience"],
-            message: "Can`t {VALUE}, must be /Fresher/Experienced/Mid Level Experience"
+            message: "{VALUE}, must be /Fresher/Experienced/Mid Level Experience"
         }
+    },
+    application_deadline: {
+        type: String
     },
     salary: {
         type: String,
@@ -42,10 +48,17 @@ const jobSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    company_details: {
+    job_type: {
         type: String,
-        required: true
+        enum: {
+            values: ["Full Time", "Part Time", "Hourly"],
+            message: "{VALUE}, must be /Full Time/Part Time/ Hourly"
+        }
     },
+    // company_details: {
+    //     type: String,
+    //     required: true
+    // },
     job_description: {
         type: String,
         required: true
@@ -64,13 +77,12 @@ const jobSchema = new mongoose.Schema({
         type: String,
         required: true
     }],
-    company_information: [{
-        type: String,
-        required: true
-    }],
+    // company_information: [{
+    //     type: String,
+    //     required: true
+    // }],
     company: [{
-        type: ObjectId,
-        ref: 'CompanyInfo'
+        type: String,
     }],
     applicants: [],
     queries: [],

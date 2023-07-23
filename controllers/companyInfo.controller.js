@@ -1,3 +1,4 @@
+const Jobs = require("../models/Jobs");
 const { createCompanyInfoService, getCompanyInfoService } = require("../services/companyInfo.service");
 
 exports.createCompanyInfo = async (req, res) => {
@@ -5,8 +6,11 @@ exports.createCompanyInfo = async (req, res) => {
         const companyInfo = req.body;
         const email = req.body.user_email;
         const result = await createCompanyInfoService(email, companyInfo);
-        console.log(result)
-        // const {_id}
+        // const getCompanyInfo = await getCompanyInfoService(email);
+        // const { _id } = getCompanyInfo;
+        // const updatePopulate = await Jobs.updateOne()
+        // console.log(_id)
+        // console.log('company info', getCompanyInfo);
         res.status(200).json({
             status: 'Success',
             data: result

@@ -1,3 +1,4 @@
+const { getCompanyInfoService } = require("../services/companyInfo.service");
 const { getJobsService, createJobsService, getJobsByCategoryService, getJobsDetailsByIdService, createApplyService, existApplyUserService, getAppliedJobsService, createQuestionsService, getQuestionsService, createRipleyService, getRipleyService } = require("../services/jobs.service")
 
 exports.getJobs = async (req, res, next) => {
@@ -49,7 +50,9 @@ exports.getJobsDetailsById = async (req, res, next) => {
 
 exports.createJobs = async (req, res, next) => {
     try {
-        const jobs = await createJobsService(req.body);
+        const jobInfo = req.body;
+        const jobs = await createJobsService(jobInfo);
+        console.log('id > ', jobs)
         res.status(200).send({
             statue: "Success",
         })
@@ -85,7 +88,7 @@ exports.createApply = async (req, res) => {
         }
 
     } catch (error) {
-    //    next(error)
+        //    next(error)
     }
 }
 
@@ -108,10 +111,10 @@ exports.getAppliedJobs = async (req, res) => {
 
 
 exports.createQuestions = async (req, res) => {
-    try {        
+    try {
         const data = req.body;
         const id = data.jobId;
-        const questions = await createQuestionsService(id, data);        
+        const questions = await createQuestionsService(id, data);
         res.status(200).send({
             status: 'Success',
             data: questions
@@ -125,11 +128,11 @@ exports.createQuestions = async (req, res) => {
 }
 
 exports.createRipley = async (req, res) => {
-    try {        
+    try {
         const data = req.body;
         const id = data.ripleyJobId;
         console.log('ripley data: ', data)
-        const ripley = await createRipleyService(id, data);        
+        const ripley = await createRipleyService(id, data);
         res.status(200).send({
             status: 'Success',
             data: ripley
@@ -144,11 +147,11 @@ exports.createRipley = async (req, res) => {
 
 
 exports.getQuestions = async (req, res) => {
-    try {        
+    try {
         const id = req.params.id
         const questions = await getQuestionsService(id);
         console.log(questions)
-        
+
         res.status(200).send({
             status: 'Success',
             data: questions.queries
@@ -161,11 +164,11 @@ exports.getQuestions = async (req, res) => {
     }
 }
 exports.getRipley = async (req, res) => {
-    try {        
+    try {
         const id = req.params.id
         const ripley = await getRipleyService(id);
         console.log(ripley)
-        
+
         res.status(200).send({
             status: 'Success',
             data: ripley.replies
