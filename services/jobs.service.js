@@ -14,7 +14,9 @@ exports.getJobsDetailsByIdService = async (id) => {
 }
 
 exports.createJobsService = async (data) => {
+    console.log('service job', data)
     const jobs = await Jobs.create(data);
+    console.log('return ', jobs)
     return jobs;
 }
 
@@ -64,4 +66,14 @@ exports.getQuestionsService = async (id) => {
 exports.getRipleyService = async (id) => {
     const ripley = await Jobs.findOne({ _id: id });
     return ripley;
+}
+
+exports.getHrJobsService = async (email) => {
+    const jobs = await Jobs.find({ email: email });
+    return jobs
+}
+
+exports.deleteJobService = async (id) => {
+    const job = await Jobs.deleteOne({ _id: id });
+    return job
 }

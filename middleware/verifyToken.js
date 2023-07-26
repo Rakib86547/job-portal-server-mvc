@@ -9,7 +9,7 @@ exports.verifyToken = async (req, res, next) => {
         }
 
         const token = authHeader.split(" ")[1]
-        console.log('token>>> ', token)
+        // console.log('token>>> ', token)
         jwt.verify(token, process.env.JWT_SECRET_KEY, { expiresIn: '7day' }, function (error, decoded) {
             if (error) {
                 return res.status(403).send({ status: "Fail", message: "forbidden access" });

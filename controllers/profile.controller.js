@@ -5,7 +5,7 @@ exports.createProfile = async (req, res, next) => {
         // console.log('token: >', req)
         const email = req.params.email;
         const profileInfo = req.body;
-        console.log('profile: ', profileInfo)
+        // console.log('profile: ', profileInfo)
         const profile = await createProfileService(profileInfo, email);
         res.status(200).send({
             status: 'Success',

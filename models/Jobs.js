@@ -6,13 +6,13 @@ const { ObjectId } = mongoose.Schema.Types;
 const jobSchema = new mongoose.Schema({
     job_title: {
         type: String,
-        trim: true,
-        required: [true, "Please Provide Job Title"],
+        // trim: true,
+        // required: [true, "Please Provide Job Title"],
     },
     img: {
         type: String,
-        required: true,
-        validate: [validator.isURL, "Please Provide a Image"]
+        // required: true,
+        // validate: [validator.isURL, "Please Provide a Image"]
     },
     email: {
         type: String,
@@ -24,36 +24,26 @@ const jobSchema = new mongoose.Schema({
     // },
     location: {
         type: String,
-        trim: true,
-        minLength: [3, "Location must be at least 3 characters."],
-        maxLength: [50, "Location is too large"],
     },
     experience: {
         type: String,
-        trim: true,
-        enum: {
-            values: ["Fresher", "Experienced", "Mid Level Experience"],
-            message: "{VALUE}, must be /Fresher/Experienced/Mid Level Experience"
-        }
     },
     application_deadline: {
         type: String
     },
     salary: {
         type: String,
-        required: [true, "Salary is Required"],
-        min: [0, "Salary can't be negative"]
     },
     position: {
         type: String,
-        required: true
+        // required: true
     },
     job_type: {
         type: String,
-        enum: {
-            values: ["Full Time", "Part Time", "Hourly"],
-            message: "{VALUE}, must be /Full Time/Part Time/ Hourly"
-        }
+        // enum: {
+        //     values: ["Full Time", "Part Time", "Hourly"],
+        //     message: "{VALUE}, must be /Full Time/Part Time/ Hourly"
+        // }
     },
     // company_details: {
     //     type: String,
@@ -61,33 +51,55 @@ const jobSchema = new mongoose.Schema({
     // },
     job_description: {
         type: String,
-        required: true
+        // required: true
     },
     key_responsibilities: [
         {
             type: String,
-            required: true
+            // required: true
         }
     ],
     skill_experience: [{
         type: String,
-        required: true
+        // required: true
     }],
     job_skills: [{
         type: String,
-        required: true
+        // required: true
     }],
-    // company_information: [{
-    //     type: String,
-    //     required: true
-    // }],
+    company_infortmation: [{
+        name: {
+            type: String
+        },
+        industry: {
+            type: String
+        },
+        employer: {
+            type: String
+        },
+        found_in: {
+            type: String
+        },
+        email: {
+            type: String
+        },
+        website: {
+            type: String
+        },
+        location: {
+            type: String
+        },
+        company_name: {
+            type: String
+        }
+    }],
     company: [{
         type: String,
     }],
     applicants: [],
     queries: [],
     replies: []
-},{
+}, {
     timestamps: true
 });
 

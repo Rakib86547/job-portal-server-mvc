@@ -1,5 +1,5 @@
 const { getCompanyInfoService } = require("../services/companyInfo.service");
-const { getJobsService, createJobsService, getJobsByCategoryService, getJobsDetailsByIdService, createApplyService, existApplyUserService, getAppliedJobsService, createQuestionsService, getQuestionsService, createRipleyService, getRipleyService } = require("../services/jobs.service")
+const { getJobsService, createJobsService, getJobsByCategoryService, getJobsDetailsByIdService, createApplyService, existApplyUserService, getAppliedJobsService, createQuestionsService, getQuestionsService, createRipleyService, getRipleyService, getHrJobsService, deleteJobService } = require("../services/jobs.service")
 
 exports.getJobs = async (req, res, next) => {
     try {
@@ -52,7 +52,6 @@ exports.createJobs = async (req, res, next) => {
     try {
         const jobInfo = req.body;
         const jobs = await createJobsService(jobInfo);
-        console.log('id > ', jobs)
         res.status(200).send({
             statue: "Success",
         })
@@ -172,6 +171,39 @@ exports.getRipley = async (req, res) => {
         res.status(200).send({
             status: 'Success',
             data: ripley.replies
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: "Fail",
+            message: error.message
+        })
+    }
+}
+
+exports.getHrJobs = async (req, res) => {
+    try {
+        const email = req.params.email;
+        const jobs = await getHrJobsService(email);
+        res.status(200).send({
+            status: "Success",
+            data: jobs
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: "Fail",
+            message: error.message
+        })
+    }
+}
+
+exports.deleteJob = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const job = await deleteJobService(id);
+        console.log('delete job >', job)
+        res.status(200).send({
+            status: "Success",
+            data: job
         })
     } catch (error) {
         res.status(400).json({
