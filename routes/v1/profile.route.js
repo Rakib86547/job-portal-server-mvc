@@ -4,8 +4,7 @@ const { verifyToken } = require('../../middleware/verifyToken');
 const router = express.Router();
 
 
-router.route('/:email')
-    .put(profileController.createProfile)
-    .get(profileController.getUpdateUser)
+router.route('/').put(profileController.createProfile)
+router.route('/:email').get(profileController.getUpdateUser)
 
 module.exports = router;

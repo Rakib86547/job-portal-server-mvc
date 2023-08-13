@@ -50,7 +50,7 @@ const userSchema = new mongoose.Schema({
         enum: ["Candidate", "Employer"],
         default: "Employer",
     },
-    image: String,
+    img: String,
     job_title: String,
     phone: String,
     language: String,

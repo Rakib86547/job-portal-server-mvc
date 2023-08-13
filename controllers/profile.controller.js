@@ -3,9 +3,8 @@ const { createProfileService, getUpdateUserService } = require("../services/prof
 exports.createProfile = async (req, res, next) => {
     try {
         // console.log('token: >', req)
-        const email = req.params.email;
+        const email = req.body.email;
         const profileInfo = req.body;
-        // console.log('profile: ', profileInfo)
         const profile = await createProfileService(profileInfo, email);
         res.status(200).send({
             status: 'Success',
