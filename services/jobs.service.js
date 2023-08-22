@@ -77,3 +77,7 @@ exports.deleteJobService = async (id) => {
     const job = await Jobs.deleteOne({ _id: id });
     return job
 }
+exports.getManageJobService = async (id) => {
+    const result = await Jobs.findOne({ _id: id });
+    return result;
+}

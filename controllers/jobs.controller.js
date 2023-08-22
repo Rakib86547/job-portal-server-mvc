@@ -1,5 +1,5 @@
 const { getCompanyInfoService } = require("../services/companyInfo.service");
-const { getJobsService, createJobsService, getJobsByCategoryService, getJobsDetailsByIdService, createApplyService, existApplyUserService, getAppliedJobsService, createQuestionsService, getQuestionsService, createRipleyService, getRipleyService, getHrJobsService, deleteJobService } = require("../services/jobs.service")
+const { getJobsService, createJobsService, getJobsByCategoryService, getJobsDetailsByIdService, createApplyService, existApplyUserService, getAppliedJobsService, createQuestionsService, getQuestionsService, createRipleyService, getRipleyService, getHrJobsService, deleteJobService, getManageJobService } = require("../services/jobs.service")
 
 exports.getJobs = async (req, res, next) => {
     try {
@@ -204,6 +204,21 @@ exports.deleteJob = async (req, res) => {
         res.status(200).send({
             status: "Success",
             data: job
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: "Fail",
+            message: error.message
+        })
+    }
+}
+exports.getManageJob = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const result = await getManageJobService(id);
+        res.status(200).send({
+            status: "Success",
+            data: result
         })
     } catch (error) {
         res.status(400).json({
