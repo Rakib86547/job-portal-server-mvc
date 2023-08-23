@@ -22,9 +22,10 @@ exports.getUpdateUser = async (req, res, next) => {
     try {       
         const email = req.params.email
         const profile = await getUpdateUserService(email);
+        const {password, ...others} = profile.toObject();
         res.status(200).send({
             status: 'Success',
-            data: profile
+            data: others
         })
     } catch (error) {
         res.status(500).send({

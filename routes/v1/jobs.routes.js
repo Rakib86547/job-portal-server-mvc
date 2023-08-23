@@ -19,5 +19,6 @@ router.route('/ripley').patch(jobsController.createRipley)
 router.route('/ripley/:id').get(jobsController.getRipley)
 router.route('/:id').delete(jobsController.deleteJob)
 router.route('/manage-jobs/:id').get(jobsController.getManageJob)
+router.route('/applier').delete(jobsController.deleteApplier)
 
 module.exports = router;

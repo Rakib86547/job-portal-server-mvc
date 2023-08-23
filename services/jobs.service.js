@@ -81,3 +81,9 @@ exports.getManageJobService = async (id) => {
     const result = await Jobs.findOne({ _id: id });
     return result;
 }
+exports.deleteApplierService = async (email) => {
+    // const result = await Jobs.updateOne(
+    //     {$pull: {applicants: {email: email}}}
+    // );
+    // return result;
+}

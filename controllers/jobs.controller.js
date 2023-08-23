@@ -1,5 +1,5 @@
 const { getCompanyInfoService } = require("../services/companyInfo.service");
-const { getJobsService, createJobsService, getJobsByCategoryService, getJobsDetailsByIdService, createApplyService, existApplyUserService, getAppliedJobsService, createQuestionsService, getQuestionsService, createRipleyService, getRipleyService, getHrJobsService, deleteJobService, getManageJobService } = require("../services/jobs.service")
+const { getJobsService, createJobsService, getJobsByCategoryService, getJobsDetailsByIdService, createApplyService, existApplyUserService, getAppliedJobsService, createQuestionsService, getQuestionsService, createRipleyService, getRipleyService, getHrJobsService, deleteJobService, getManageJobService, deleteApplierService } = require("../services/jobs.service")
 
 exports.getJobs = async (req, res, next) => {
     try {
@@ -32,9 +32,7 @@ exports.getJobsByCategory = async (req, res, next) => {
 }
 exports.getJobsDetailsById = async (req, res, next) => {
     try {
-        console.log('params: ', req.params.id)
         const id = req.params.id
-        console.log('controller', id)
         const jobs = await getJobsDetailsByIdService(id);
         res.status(200).send({
             statue: "Success",
@@ -130,7 +128,6 @@ exports.createRipley = async (req, res) => {
     try {
         const data = req.body;
         const id = data.ripleyJobId;
-        console.log('ripley data: ', data)
         const ripley = await createRipleyService(id, data);
         res.status(200).send({
             status: 'Success',
@@ -149,7 +146,6 @@ exports.getQuestions = async (req, res) => {
     try {
         const id = req.params.id
         const questions = await getQuestionsService(id);
-        console.log(questions)
 
         res.status(200).send({
             status: 'Success',
@@ -200,7 +196,6 @@ exports.deleteJob = async (req, res) => {
     try {
         const id = req.params.id;
         const job = await deleteJobService(id);
-        console.log('delete job >', job)
         res.status(200).send({
             status: "Success",
             data: job
@@ -218,6 +213,23 @@ exports.getManageJob = async (req, res) => {
         const result = await getManageJobService(id);
         res.status(200).send({
             status: "Success",
+            data: result
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: "Fail",
+            message: error.message
+        })
+    }
+}
+
+exports.deleteApplier = async (req, res) => {
+    try {
+        // const email = req.params.email;
+        console.log('body', req.body)
+        const result = await deleteApplierService(email);
+        res.status(200).send({
+            status: 'Success',
             data: result
         })
     } catch (error) {
