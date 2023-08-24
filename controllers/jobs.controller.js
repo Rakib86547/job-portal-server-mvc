@@ -1,5 +1,5 @@
 const { getCompanyInfoService } = require("../services/companyInfo.service");
-const { getJobsService, createJobsService, getJobsByCategoryService, getJobsDetailsByIdService, createApplyService, existApplyUserService, getAppliedJobsService, createQuestionsService, getQuestionsService, createRipleyService, getRipleyService, getHrJobsService, deleteJobService, getManageJobService, deleteApplierService } = require("../services/jobs.service")
+const { getJobsService, createJobsService, getJobsByCategoryService, getJobsDetailsByIdService, createApplyService, existApplyUserService, getAppliedJobsService, createQuestionsService, getQuestionsService, createRipleyService, getRipleyService, getHrJobsService, deleteJobService, getManageJobService, deleteApplierService, getAllApplierService } = require("../services/jobs.service")
 
 exports.getJobs = async (req, res, next) => {
     try {
@@ -225,12 +225,29 @@ exports.getManageJob = async (req, res) => {
 
 exports.deleteApplier = async (req, res) => {
     try {
-        // const email = req.params.email;
-        console.log('body', req.body)
-        const result = await deleteApplierService(email);
+        const id = req.params.id;
+        const email = req.params.email;
+        const result = await deleteApplierService(email, id);
         res.status(200).send({
             status: 'Success',
             data: result
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: "Fail",
+            message: error.message
+        })
+    }
+}
+
+exports.getAllApplier = async (req, res) => {
+    try {
+        const email = req.params.email;
+        const result = await getAllApplierService(email);
+        console.log('all applier', result)
+        res.status(200).send({
+            status: "Success",
+            // data: result
         })
     } catch (error) {
         res.status(400).json({
