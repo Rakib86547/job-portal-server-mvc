@@ -177,7 +177,25 @@ exports.getRipley = async (req, res) => {
 }
 
 exports.getHrJobs = async (req, res) => {
+    // let page = 3
+    // let limit = 10;
+    // let skip = (3 - 1) * 10;
+
     try {
+        // let page = parseInt(req.query.page) || 2;
+        // let limit = parseInt(req.query.limit) || 10;
+        // let skip = (page - 1) * limit;
+        // const email = req.query.email;
+        // console.log('query', req.query)
+        // // const total = await jobs.countDocuments();
+        // const jobs = await getHrJobsService(email, skip, limit);
+        // console.log('total count data>>', total);
+        // console.log('pagination data', jobs)
+        // res.json({
+        //     status: 'Success',
+        //     data: jobs
+        // })
+
         const email = req.params.email;
         const jobs = await getHrJobsService(email);
         res.status(200).send({
@@ -244,10 +262,10 @@ exports.getAllApplier = async (req, res) => {
     try {
         const email = req.params.email;
         const result = await getAllApplierService(email);
-        console.log('all applier', result)
+        const applier = result.map(apply => apply.applicants);
         res.status(200).send({
             status: "Success",
-            // data: result
+            data: applier
         })
     } catch (error) {
         res.status(400).json({

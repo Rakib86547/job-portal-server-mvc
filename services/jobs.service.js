@@ -90,6 +90,6 @@ exports.deleteApplierService = async (email, id) => {
 }
 
 exports.getAllApplierService = async (email) => {
-    const result = await Jobs.find(({ email: email }).select('applicants'));
+    const result = await Jobs.find({ email: email });
     return result
 }
