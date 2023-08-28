@@ -17,6 +17,7 @@ const educationRoute = require('./routes/v1/education.route')
 const workRoute = require('./routes/v1/work.route')
 const companyRoute = require('./routes/v1/companyInfo.route')
 const skillRoute = require('./routes/v1/skill.route')
+const searchRoute = require('./routes/v1/search.routes')
 
 
 app.get('/', (req, res) => {
@@ -36,5 +37,6 @@ app.use('/api/v1/education', educationRoute)
 app.use('/api/v1/work', workRoute)
 app.use('/api/v1/company', companyRoute);
 app.use('/api/v1/skill', skillRoute);
+app.use('/api/v1/search', searchRoute);
 
 module.exports = app;

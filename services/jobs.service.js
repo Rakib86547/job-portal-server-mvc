@@ -14,9 +14,7 @@ exports.getJobsDetailsByIdService = async (id) => {
 }
 
 exports.createJobsService = async (data) => {
-    console.log('service job', data)
     const jobs = await Jobs.create(data);
-    console.log('return ', jobs)
     return jobs;
 }
 
@@ -72,6 +70,14 @@ exports.getHrJobsService = async (email) => {
     const jobs = await Jobs.find({ email: email });
     return jobs
 }
+exports.getHrJobsService = async (email, skip, limit) => {
+    const jobs = await Jobs.find({ email: email }).skip(skip).limit(limit);
+    return jobs
+}
+exports.getHrTotalJobsService = async (email) => {
+    const totalJobs = await Jobs.find({ email: email });
+    return totalJobs
+}
 
 exports.deleteJobService = async (id) => {
     const job = await Jobs.deleteOne({ _id: id });
@@ -89,7 +95,11 @@ exports.deleteApplierService = async (email, id) => {
     return result
 }
 
-exports.getAllApplierService = async (email) => {
+exports.getAllApplierService = async (email, skip, limit) => {
+    const result = await Jobs.find({ email: email }).skip(skip).limit(limit);
+    return result
+}
+exports.getAllAppliersService = async (email) => {
     const result = await Jobs.find({ email: email });
     return result
 }

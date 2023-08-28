@@ -1,5 +1,6 @@
+const Jobs = require("../models/Jobs");
 const { getCompanyInfoService } = require("../services/companyInfo.service");
-const { getJobsService, createJobsService, getJobsByCategoryService, getJobsDetailsByIdService, createApplyService, existApplyUserService, getAppliedJobsService, createQuestionsService, getQuestionsService, createRipleyService, getRipleyService, getHrJobsService, deleteJobService, getManageJobService, deleteApplierService, getAllApplierService } = require("../services/jobs.service")
+const { getJobsService, createJobsService, getJobsByCategoryService, getJobsDetailsByIdService, createApplyService, existApplyUserService, getAppliedJobsService, createQuestionsService, getQuestionsService, createRipleyService, getRipleyService, getHrJobsService, deleteJobService, getManageJobService, deleteApplierService, getAllApplierService, getHrTotalJobsService, getAllAppliersService } = require("../services/jobs.service")
 
 exports.getJobs = async (req, res, next) => {
     try {
@@ -182,24 +183,15 @@ exports.getHrJobs = async (req, res) => {
     // let skip = (3 - 1) * 10;
 
     try {
-        // let page = parseInt(req.query.page) || 2;
-        // let limit = parseInt(req.query.limit) || 10;
-        // let skip = (page - 1) * limit;
-        // const email = req.query.email;
-        // console.log('query', req.query)
-        // // const total = await jobs.countDocuments();
-        // const jobs = await getHrJobsService(email, skip, limit);
-        // console.log('total count data>>', total);
-        // console.log('pagination data', jobs)
-        // res.json({
-        //     status: 'Success',
-        //     data: jobs
-        // })
-
+        let page = parseInt(req.params.page) || 1;
+        let limit = parseInt(req.params.limit) || 8;
+        let skip = (page - 1) * limit;
         const email = req.params.email;
-        const jobs = await getHrJobsService(email);
-        res.status(200).send({
-            status: "Success",
+        const jobs = await getHrJobsService(email, skip, limit);
+        const totalsJobs = await getHrTotalJobsService(email)
+        res.json({
+            status: 'Success',
+            total: totalsJobs.length,
             data: jobs
         })
     } catch (error) {
@@ -260,11 +252,17 @@ exports.deleteApplier = async (req, res) => {
 
 exports.getAllApplier = async (req, res) => {
     try {
+        let page = parseInt(req.params.page) || 1;
+        let limit = parseInt(req.params.limit) || 8;
+        let skip = (page - 1) * limit;
         const email = req.params.email;
-        const result = await getAllApplierService(email);
+        const allApplier = await getAllAppliersService(email);
+        const totalApplier = allApplier?.map(apply => apply.applicants);
+        const result = await getAllApplierService(email, skip, limit);
         const applier = result.map(apply => apply.applicants);
         res.status(200).send({
             status: "Success",
+            total: totalApplier?.length,   
             data: applier
         })
     } catch (error) {
