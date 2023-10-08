@@ -1,6 +1,6 @@
 const Jobs = require("../models/Jobs")
 
-exports.getSearchJobsService = async (title, location) => {
+exports.getSearchJobsService = async (keyword, location) => {
     // if (title !== undefined) {
     //     const result = await Jobs.find({
     //         "$or": [
@@ -17,9 +17,9 @@ exports.getSearchJobsService = async (title, location) => {
     //     });
     //     return result
     // }
-    if (title !== undefined ) {
+    if (keyword !== undefined ) {
         const result = await Jobs.find({
-            position: { $regex: new RegExp(`^${title}`, 'i') }
+            position: { $regex: new RegExp(`^${keyword}`, 'i') }
         });
         return result
     }

@@ -2,8 +2,8 @@ const { getSearchJobsService } = require("../services/search.service");
 
 exports.getSearchJobs = async (req, res) => {
     try {
-        const { title, location } = req.query;    
-            const result = await getSearchJobsService(title, location);
+        const { keyword, location } = req.query;
+            const result = await getSearchJobsService(keyword, location);
             res.status(200).send({
                 status: 'Success',
                 total: result.length,
