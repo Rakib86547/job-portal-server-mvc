@@ -1,6 +1,6 @@
 const Jobs = require("../models/Jobs");
 const { getCompanyInfoService } = require("../services/companyInfo.service");
-const { getJobsService, createJobsService, getJobsByCategoryService, getJobsDetailsByIdService, createApplyService, existApplyUserService, getAppliedJobsService, createQuestionsService, getQuestionsService, createRipleyService, getRipleyService, getHrJobsService, deleteJobService, getManageJobService, deleteApplierService, getAllApplierService, getHrTotalJobsService, getAllAppliersService } = require("../services/jobs.service")
+const { getJobsService, createJobsService, getJobsByCategoryService, getJobsDetailsByIdService, createApplyService, existApplyUserService, getAppliedJobsService, createQuestionsService, getQuestionsService, createRipleyService, getRipleyService, getHrJobsService, deleteJobService, getManageJobService, deleteApplierService, getAllApplierService, getHrTotalJobsService, getAllAppliersService, getTotalJobsService, getAllJobsService, getTodayJobsService, getTotalAllJobsService } = require("../services/jobs.service")
 
 exports.getJobs = async (req, res, next) => {
     try {
@@ -201,6 +201,27 @@ exports.getHrJobs = async (req, res) => {
         })
     }
 }
+exports.getAllJobs = async (req, res) => {
+    try {
+        let page = parseInt(req.params.page) || 1;
+        let limit = parseInt(req.params.limit) || 12;
+        let skip = (page - 1) * limit;
+        const jobs = await getAllJobsService(skip, limit);
+        const totalsJobs = await getTotalJobsService();
+        res.json({
+            status: 'Success',
+            total: totalsJobs.length,
+            data: jobs
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: "Fail",
+            message: error.message
+        })
+    }
+}
+
+
 
 exports.deleteJob = async (req, res) => {
     try {
@@ -262,8 +283,40 @@ exports.getAllApplier = async (req, res) => {
         const applier = result.map(apply => apply.applicants);
         res.status(200).send({
             status: "Success",
-            total: totalApplier?.length,   
+            total: totalApplier?.length,
             data: applier
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: "Fail",
+            message: error.message
+        })
+    }
+}
+
+exports.getTodayJobs = async (req, res) => {
+    try {
+        const todayDate = new Date();
+        console.log('today data', todayDate)
+        const result = await getTodayJobsService(todayDate);
+        res.status(200).send({
+            status: "Success",
+            data: result
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: "Fail",
+            message: error.message
+        })
+    }
+}
+exports.getTotalAllJobs = async (req, res) => {
+    try {
+        const result = await getTotalAllJobsService();
+        console.log('total', result.length)
+        res.status(200).send({
+            status: "Success",
+            data: result
         })
     } catch (error) {
         res.status(400).json({

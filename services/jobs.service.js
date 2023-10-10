@@ -103,3 +103,20 @@ exports.getAllAppliersService = async (email) => {
     const result = await Jobs.find({ email: email });
     return result
 }
+
+exports.getTotalJobsService = async () => {
+    const result = await Jobs.find();
+    return result
+}
+exports.getAllJobsService = async (skip, limit) => {
+    const result = await Jobs.find().skip(skip).limit(limit);
+    return result
+}
+exports.getTodayJobsService = async (todayDate) => {
+    const result = await Jobs.find({ createdAt: todayDate });
+    return result
+}
+exports.getTotalAllJobsService = async () => {
+    const result = await Jobs.find();
+    return result
+}
