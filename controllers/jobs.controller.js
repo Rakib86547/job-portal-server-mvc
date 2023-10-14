@@ -1,6 +1,29 @@
 const Jobs = require("../models/Jobs");
 const { getCompanyInfoService } = require("../services/companyInfo.service");
-const { getJobsService, createJobsService, getJobsByCategoryService, getJobsDetailsByIdService, createApplyService, existApplyUserService, getAppliedJobsService, createQuestionsService, getQuestionsService, createRipleyService, getRipleyService, getHrJobsService, deleteJobService, getManageJobService, deleteApplierService, getAllApplierService, getHrTotalJobsService, getAllAppliersService, getTotalJobsService, getAllJobsService, getTodayJobsService, getTotalAllJobsService } = require("../services/jobs.service")
+const { 
+    getJobsService, 
+    createJobsService, 
+    getJobsByCategoryService, 
+    getJobsDetailsByIdService, 
+    createApplyService, 
+    existApplyUserService, 
+    getAppliedJobsService, 
+    createQuestionsService, 
+    getQuestionsService, 
+    createRipleyService, 
+    getRipleyService, 
+    getHrJobsService, 
+    deleteJobService, 
+    getManageJobService, 
+    deleteApplierService, 
+    getAllApplierService, 
+    getHrTotalJobsService, 
+    getAllAppliersService, 
+    getTotalJobsService, 
+    getAllJobsService, 
+    getTodayJobsService, 
+    getTotalAllJobsService, 
+    getTotalJobsCountsService} = require("../services/jobs.service")
 
 exports.getJobs = async (req, res, next) => {
     try {
@@ -310,13 +333,14 @@ exports.getTodayJobs = async (req, res) => {
         })
     }
 }
-exports.getTotalAllJobs = async (req, res) => {
+
+exports.getTotalJobsCounts = async (req, res) => {
     try {
-        const result = await getTotalAllJobsService();
+        const result = await getTotalJobsCountsService();
         console.log('total', result.length)
         res.status(200).send({
             status: "Success",
-            data: result
+            data: result,            
         })
     } catch (error) {
         res.status(400).json({

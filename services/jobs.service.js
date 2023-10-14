@@ -116,7 +116,8 @@ exports.getTodayJobsService = async (todayDate) => {
     const result = await Jobs.find({ createdAt: todayDate });
     return result
 }
-exports.getTotalAllJobsService = async () => {
-    const result = await Jobs.find();
-    return result
-}
+
+// exports.getTotalJobsCountsService = async () => {
+//     const result = await Jobs.find();
+//     return result
+// }
