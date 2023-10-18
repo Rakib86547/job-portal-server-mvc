@@ -5,7 +5,6 @@ exports.createWork = async (req, res, next) => {
     try {
         const data = req.body;
         const work = await createWorkService(data);
-        console.log(work)
         res.status(200).send({
             status: 'Success',
             data: work

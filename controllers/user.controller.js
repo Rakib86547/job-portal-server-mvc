@@ -9,8 +9,6 @@ exports.signUp = async (req, res, next) => {
         const user = await signupService(userInfo, email);
 
        const token = generateToken(userInfo)
-    //    console.log(token)
-    //    console.log(user)
         res.status(200).send({
             status: "Success",
             data: user,

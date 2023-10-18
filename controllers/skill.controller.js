@@ -3,7 +3,6 @@ const { createSkillService, getSkillService, deleteSkillService } = require("../
 exports.createSkill = async (req, res) => {
     try {
         const data = req.body;
-        console.log('body', data)
         const result = await createSkillService(data);
         res.status(200).send({
             status: "Success",

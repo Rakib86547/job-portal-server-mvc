@@ -11,7 +11,6 @@ exports.fileUpload = async (req, res, next) => {
             email: email
         }
         const uploadFile = await fileUploadService(data, email);
-        console.log('upload', uploadFile)
         res.status(200).send({
             status: "Success",
             data: uploadFile
@@ -43,7 +42,6 @@ exports.deleteFile = async (req, res, next) => {
     try {
         const id = req.params.id;
         const deleteFile = await deleteFileService(id);
-        console.log('delete', deleteFile)
         res.status(200).send({
             status: "Success",
             data: deleteFile

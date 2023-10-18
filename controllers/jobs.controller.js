@@ -131,6 +131,7 @@ exports.getAppliedJobs = async (req, res) => {
 }
 
 
+
 exports.createQuestions = async (req, res) => {
     try {
         const data = req.body;
@@ -186,7 +187,6 @@ exports.getRipley = async (req, res) => {
     try {
         const id = req.params.id
         const ripley = await getRipleyService(id);
-        console.log(ripley)
 
         res.status(200).send({
             status: 'Success',
@@ -320,7 +320,6 @@ exports.getAllApplier = async (req, res) => {
 exports.getTodayJobs = async (req, res) => {
     try {
         const todayDate = new Date();
-        console.log('today data', todayDate)
         const result = await getTodayJobsService(todayDate);
         res.status(200).send({
             status: "Success",
@@ -337,7 +336,6 @@ exports.getTodayJobs = async (req, res) => {
 exports.getTotalJobsCounts = async (req, res) => {
     try {
         const result = await getTotalJobsCountsService();
-        console.log('total', result.length)
         res.status(200).send({
             status: "Success",
             data: result,            
