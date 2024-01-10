@@ -11,6 +11,7 @@ const corsConfig = {
 }
 app.use(cors(corsConfig))
 app.options("", cors(corsConfig))
+
 const jobsRoute = require('./routes/v1/jobs.routes');
 const categoryRoute = require('./routes/v1/category.route');
 const userRoute = require('./routes/v1/user.route');
