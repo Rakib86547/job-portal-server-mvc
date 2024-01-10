@@ -4,7 +4,7 @@ const app = require('./app');
 const dotenv = require('dotenv').config();
 const port = process.env.PORT || 8080;
 
-// Database Connection
+
 mongoose.connect(process.env.DB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
