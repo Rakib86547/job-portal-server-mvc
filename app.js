@@ -3,7 +3,14 @@ const app = express()
 const cors = require('cors');
 
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
+const corsConfig = {
+    origin: '',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE']
+}
+app.use(cors(corsConfig))
+app.options("", cors(corsConfig))
 const jobsRoute = require('./routes/v1/jobs.routes');
 const categoryRoute = require('./routes/v1/category.route');
 const userRoute = require('./routes/v1/user.route');
