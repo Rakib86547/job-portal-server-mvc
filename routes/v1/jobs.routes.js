@@ -10,7 +10,6 @@ router.route('/')
 
 router.route('/:category').get(jobsController.getJobsByCategory)
 router.route('/job-details/:id').get(jobsController.getJobsDetailsById)
-// router.route('/hr-jobs/:email').get(jobsController.getHrJobs)
 router.route('/hr-jobs/:email/:page/:limit').get(jobsController.getHrJobs)
 router.route('/all-jobs/:page/:limit').get(jobsController.getAllJobs)
 router.route('/today-jobs').get(jobsController.getTodayJobs)
@@ -24,6 +23,5 @@ router.route('/:id').delete(jobsController.deleteJob)
 router.route('/manage-jobs/:id').get(jobsController.getManageJob)
 router.route('/applier/:email/:id').delete(jobsController.deleteApplier)
 router.route('/all-applier/:email/:page/:limit').get(jobsController.getAllApplier)
-// router.route('/total-length').get(jobsController.getTotalJobsCounts)
 
 module.exports = router;
